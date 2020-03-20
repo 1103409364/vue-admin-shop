@@ -85,44 +85,44 @@ export default {
 
 <style lang="stylus" scoped>
 .login
-  width 100%
-  height 100%
-  background-color #2b4b6b
+  width: 100%
+  height: 100%
+  background-color: #2b4b6b
   .login_box
-    width 450px
-    height 300px
-    background-color #fff
-    border-radius 3px
-    position absolute
-    left 50%
-    top 50%
+    width: 450px
+    height: 300px
+    background-color: #fff
+    border-radius: 3px
+    position: absolute
+    left: 50%
+    top: 50%
     // margin-left -225px
     // margin-top -150px
-    transform translate(-50%, -50%)
-    position relative
+    transform: translate(-50%, -50%)
+    position: relative
     .avatar_box
-      position absolute
-      box-sizing border-box
-      left 50%
-      top -65px
-      transform translateX(-50%)
-      padding 5px
-      width 130px
-      height 130px
-      border 1px solid #eee
-      border-radius 50%
-      box-shadow 0 0 10px #999
-      background-color #fff
+      position: absolute
+      box-sizing: border-box
+      left: 50%
+      top: -65px
+      transform: translateX(-50%)
+      padding: 5px
+      width: 130px
+      height: 130px
+      border: 1px solid #eee
+      border-radius: 50%
+      box-shadow: 0 0 10px #999
+      background-color: #fff
       img
-        width 100%
-        height 100%
-        border-radius 50%
+        width: 100%
+        height: 100%
+        border-radius: 50%
     .login_form
-      position absolute
-      left 50px
-      right 50px
-      bottom 0
+      position: absolute
+      left: 50px
+      right: 50px
+      bottom: 0
       .btns
-        display flex
-        justify-content flex-end
+        display: flex
+        justify-content: flex-end
 </style>
