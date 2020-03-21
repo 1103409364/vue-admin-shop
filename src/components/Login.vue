@@ -63,19 +63,22 @@ export default {
     login() {
       // 表单预验证
       this.$refs.loginForm.validate(async valid => {
-        console.log(valid);
+        // console.log(valid);
         if (!valid) return;
-
-        const { data: res } = await this.$http.post('login', this.loginForm);
-        if (res.meta.status !== 200) {
-          return this.$message.error('登录失败');
-        }
+        const res = await this.$http.post('login', this.loginForm);
+        // if (res.meta.status !== 200) {
+        //   return this.$message.error('登录失败');
+        // }
         // admin 123456
-        this.$message.success('登录成功');
+        // this.$message.success('登录成功');
         // 将登录成功后的 token 保存到客户端的 sessionStorage 里
         // 项目中其他 api 必须登录之后才能访问
         // token 只应在当前网站打开期间生效，所以 token 保存在 sessionStorage 中
+
+        if (!res.data) return;
+        this.$message.success(res.meta.msg);
         window.sessionStorage.setItem('token', res.data.token);
+
         this.$router.push('/home');
       });
     }

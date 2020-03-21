@@ -4,10 +4,6 @@ import router from './router';
 import store from './store';
 import './assets/css/index.styl';
 
-import axios from 'axios';
-axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/';
-Vue.prototype.$http = axios;
-
 import {
   Pagination,
   Dialog,
@@ -87,6 +83,28 @@ import {
   Message,
   Notification
 } from 'element-ui';
+
+import axios from 'axios';
+axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/';
+
+axios.interceptors.request.use(config => {
+  let token = window.sessionStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = token;
+  }
+  return config;
+});
+
+axios.interceptors.response.use(response => {
+  const { data: res } = response;
+  if (res.meta.status !== 200) {
+    Message.error(res.meta.msg);
+    return res;
+  }
+  return res;
+});
+
+Vue.prototype.$http = axios;
 
 Vue.use(Pagination);
 Vue.use(Dialog);
