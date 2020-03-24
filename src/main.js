@@ -97,10 +97,7 @@ axios.interceptors.request.use(config => {
 
 axios.interceptors.response.use(response => {
   const { data: res } = response;
-  if (res.meta.status !== 200) {
-    Message.error(res.meta.msg);
-    return res;
-  }
+  // 查询200 增加201 删除204
   return res;
 });
 

@@ -3,10 +3,12 @@
   <el-container class="home-container">
     <el-header>
       <div>
-        <img src="../assets/logo.png" alt />
-        <span>电商管理后台</span>
+        <router-link to="/">
+          <img src="../assets/logo.png" alt="logo" />
+        </router-link>
+        <span>电商管理后台 {{ activeMenu }}</span>
       </div>
-      <el-button type="info" @click="logout">退出</el-button>
+      <el-button type="info" @click="logout" size="mini">退出</el-button>
     </el-header>
     <el-container>
       <el-aside :width="isCollapse ? '64px' : '200px'">
@@ -14,13 +16,14 @@
           <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></i>
         </div>
         <!--unique-opened 只展开一个，collapse 折叠，collapse-transition 折叠动画，
-        router 为真开启路由菜单模式，跳转到菜单绑定的 index -->
+        router 为真开启路由菜单模式，跳转到菜单绑定的 index 
+        default-active 高亮菜单的 index-->
         <el-menu
           :unique-opened="true"
           :collapse="isCollapse"
           :collapse-transition="false"
           :router="true"
-          default-active="2"
+          :default-active="activeMenu"
           class="el-menu-vertical-demo"
           @open="handleOpen"
           @close="handleClose"
@@ -73,6 +76,11 @@ export default {
       isCollapse: false
     };
   },
+  computed: {
+    activeMenu() {
+      return this.$route.path;
+    }
+  },
   methods: {
     logout() {
       window.sessionStorage.clear();
@@ -81,7 +89,7 @@ export default {
     // 获取权限菜单
     async getMenuLIst() {
       const res = await this.$http.get('menus');
-      console.log(res);
+      // console.log(res);
       this.menuList = res.data;
     },
     toogleCollapse() {
@@ -118,10 +126,11 @@ export default {
 .iconfont
   margin-right 10px
 .toggle-menu
+  padding-right 24px
   background-color #4a5064
   font-size 16px
   line-height 30px
-  text-align center
+  text-align right
   letter-spacing .2em
   cursor pointer
   color #fff
