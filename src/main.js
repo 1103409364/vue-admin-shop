@@ -97,7 +97,9 @@ axios.interceptors.request.use(config => {
 
 axios.interceptors.response.use(response => {
   const { data: res } = response;
-  // 查询200 增加201 删除204
+  if (res.meta.msg === '无效token') {
+    router.push('/login');
+  }
   return res;
 });
 

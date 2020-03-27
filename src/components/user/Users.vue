@@ -87,7 +87,7 @@
                 type="warning"
                 icon="el-icon-setting"
                 size="mini"
-                @click="distributionRole(slotProps.row)"
+                @click="setRole(slotProps.row)"
               ></el-button>
             </el-tooltip>
           </template>
@@ -134,6 +134,35 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="addDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="confirm">确 定</el-button>
+      </span>
+    </el-dialog>
+    <!-- 分配角色 dialog-->
+    <el-dialog
+      :title="dialogTitle"
+      :visible.sync="setRoleDialogVisible"
+      width="50%"
+      @close="setRoleDialogClosed"
+    >
+      <div>
+        <p class="setrole-item">当前的用户：{{ userInfo.username }}</p>
+        <p class="setrole-item">当前的角色：{{ userInfo.role_name }}</p>
+        <p class="setrole-item">
+          分配新角色：
+          <el-select v-model="selectedRoleId" placeholder="请选择">
+            <!-- label显示的选项，value 真正选中的值id -->
+            <el-option
+              v-for="item in rolesList"
+              :key="item.id"
+              :label="item.roleName"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </p>
+      </div>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="setRoleDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="confirmSetRole">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -191,7 +220,13 @@ export default {
           { validator: checkMobile, trigger: 'blur' }
         ]
       },
-      isEdit: false
+      isEdit: false,
+      setRoleDialogVisible: false,
+      // 当前编辑用户
+      userInfo: {},
+      // 所有角色列表
+      rolesList: [],
+      selectedRoleId: ''
     };
   },
   methods: {
@@ -239,12 +274,43 @@ export default {
         });
       // console.log(arg);
     },
-    distributionRole(arg) {
-      console.log(arg);
+    async setRole(arg) {
+      this.userInfo = arg;
+      // 获取角色列表
+      const res = await this.$http.get('roles');
+      if (res.meta.status !== 200) {
+        this.$message.error(res.meta.msg);
+        return;
+      }
+      this.rolesList = res.data;
+      this.setRoleDialogVisible = true;
+    },
+    // 确定分配角色
+    async confirmSetRole() {
+      if (!this.selectedRoleId) {
+        return this.$message.error('请选择要分配的角色！');
+      }
+
+      const res = await this.$http.put(`users/${this.userInfo.id}/role`, {
+        rid: this.selectedRoleId
+      });
+
+      if (res.meta.status !== 200) {
+        return this.$message.error(res.meta.msg);
+      }
+      this.$message.success(res.meta.msg);
+      this.getUserList();
+      this.setRoleDialogVisible = false;
+    },
+    // 关闭对话框，重置数据
+    setRoleDialogClosed() {
+      this.selectedRoleId = '';
+      this.userInfo = {};
     },
     // 监听 pageSize 改变
     handleSizeChange(newSize) {
       this.queryInfo.pagesize = newSize;
+      this.queryInfo.pagenum = 1;
       this.getUserList();
     },
     // 监听页码改变事件
@@ -319,4 +385,6 @@ export default {
 //   padding: 18px 0
 // .box-card
 //   width: 98%
+.setrole-item
+  margin-bottom 20px
 </style>
