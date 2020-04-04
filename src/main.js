@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import './assets/css/index.styl';
+import TreeTable from 'vue-table-with-tree-grid';
 
 import {
   Pagination,
@@ -180,6 +181,8 @@ Vue.use(PageHeader);
 Vue.use(CascaderPanel);
 
 Vue.use(Loading.directive);
+
+Vue.component('tree-table', TreeTable);
 
 Vue.prototype.$loading = Loading.service;
 Vue.prototype.$msgbox = MessageBox;
