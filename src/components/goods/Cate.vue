@@ -54,7 +54,7 @@
             icon="el-icon-edit"
             size="mini"
             @click="showEditDialog(slotProps.row)"
-            >{{ slotProps.row.cat_level }}
+          >
             编辑
           </el-button>
           <el-button
