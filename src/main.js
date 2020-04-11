@@ -4,6 +4,10 @@ import router from './router';
 import store from './store';
 import './assets/css/index.styl';
 import TreeTable from 'vue-table-with-tree-grid';
+import VueQuillEditor from 'vue-quill-editor';
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
 
 import {
   Pagination,
@@ -181,6 +185,8 @@ Vue.use(PageHeader);
 Vue.use(CascaderPanel);
 
 Vue.use(Loading.directive);
+// 富文本编辑器
+Vue.use(VueQuillEditor);
 
 Vue.component('tree-table', TreeTable);
 
@@ -191,6 +197,22 @@ Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$prompt = MessageBox.prompt;
 Vue.prototype.$notify = Notification;
 Vue.prototype.$message = Message;
+
+// 全局过滤器
+Vue.filter('dateFormat', originVal => {
+  const date = new Date(originVal);
+  const y = date.getFullYear();
+  const m = (date.getMonth() + 1 + '').padStart(2, '0');
+  const d = (date.getDate() + '').padStart(2, '0');
+
+  const hh = (date.getHours() + '').padStart(2, '0');
+  // 小于10补0,两种写法
+  // const mm = ('0' + (date.getMonth + 1)).slice(-2);
+  const mm = (date.getMinutes() + '').padStart(2, '0');
+  const ss = (date.getSeconds() + '').padStart(2, '0');
+
+  return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+});
 
 Vue.config.productionTip = false;
 
