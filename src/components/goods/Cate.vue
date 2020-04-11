@@ -71,9 +71,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="querInfo.pagenum"
+        :current-page="queryInfo.pagenum"
         :page-sizes="[3, 5, 10, 20]"
-        :page-size="querInfo.pagesize"
+        :page-size="queryInfo.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
       >
@@ -129,10 +129,10 @@ export default {
   data() {
     return {
       cateList: [],
-      querInfo: {
+      queryInfo: {
         type: 3,
         pagenum: 1,
-        pagesize: 5
+        pagesize: 10
       },
       total: 0,
       // 树形表格配置列
@@ -183,7 +183,9 @@ export default {
   methods: {
     // 获取商品分类数据。get 需要 params 字段放参数
     async getCateList() {
-      const res = await this.$http.get('categories', { params: this.querInfo });
+      const res = await this.$http.get('categories', {
+        params: this.queryInfo
+      });
       if (res.meta.status !== 200) {
         this.$message.error(res.meta.msg);
         return;
@@ -194,12 +196,12 @@ export default {
     },
     // pageSize 改变
     handleSizeChange(newSize) {
-      this.querInfo.pagesize = newSize;
+      this.queryInfo.pagesize = newSize;
       this.getCateList();
     },
     // pageNum 改变
     handleCurrentChange(newPage) {
-      this.querInfo.pagenum = newPage;
+      this.queryInfo.pagenum = newPage;
       this.getCateList();
     },
     showAddCateDialog() {
@@ -281,7 +283,7 @@ export default {
               return;
             }
             this.$message.success(res.meta.msg);
-            this.querInfo.pagenum = 1;
+            this.queryInfo.pagenum = 1;
             this.getCateList();
           }
         })

@@ -78,7 +78,8 @@ export default {
   },
   computed: {
     activeMenu() {
-      return this.$route.path;
+      // 菜单高亮 最多二级菜单 去掉最后一级路径
+      return this.$route.path.replace(/(?<=\w+)\/\w*$/, '');
     }
   },
   methods: {
