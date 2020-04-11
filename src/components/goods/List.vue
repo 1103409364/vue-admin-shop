@@ -48,16 +48,12 @@
         </el-table-column>
         <el-table-column label="操作" width="185px">
           <template v-slot="slotProps">
-<<<<<<< HEAD
             <el-button
               type="primary"
               icon="el-icon-edit"
               size="mini"
               @click="editGoods(slotProps.row)"
             >
-=======
-            <el-button type="primary" icon="el-icon-edit" size="mini">
->>>>>>> 038211263e4fb19b8583575be94616f13346633e
               修改
             </el-button>
             <el-button
@@ -141,7 +137,6 @@ export default {
           });
         });
     },
-<<<<<<< HEAD
     editGoods(row) {
       const goods_id = row.goods_id;
       console.log(goods_id);
@@ -152,8 +147,6 @@ export default {
         }
       });
     },
-=======
->>>>>>> 038211263e4fb19b8583575be94616f13346633e
     handleSizeChange(newSize) {
       this.queryInfo.pagesize = newSize;
       this.getGoodsList();

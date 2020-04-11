@@ -25,11 +25,7 @@
         <el-step title="商品属性"></el-step>
         <el-step title="商品图片"></el-step>
         <el-step title="商品内容"></el-step>
-<<<<<<< HEAD
         <el-step title="完成"></el-step>
-=======
-        <el-step title="商品完成"></el-step>
->>>>>>> 038211263e4fb19b8583575be94616f13346633e
       </el-steps>
       <!-- 垂直tab栏 每个tab都有一部分表单 用 el-form 包裹-->
       <el-form
@@ -178,13 +174,9 @@ export default {
       manyTableData: [], //动态参数列表数据
       onlyTableData: [],
       previewPath: '',
-<<<<<<< HEAD
       previewVisible: false,
       isEdit: false,
       goods_id: ''
-=======
-      previewVisible: false
->>>>>>> 038211263e4fb19b8583575be94616f13346633e
     };
   },
   computed: {
@@ -229,10 +221,7 @@ export default {
     },
     // 根据选中分类来获取动态参数列表/静态属性列表
     async getGoodsCate(sel) {
-<<<<<<< HEAD
       if (this.isEdit) return;
-=======
->>>>>>> 038211263e4fb19b8583575be94616f13346633e
       const res = await this.$http.get(`categories/${this.cateId}/attributes`, {
         params: {
           sel
@@ -301,7 +290,6 @@ export default {
         const addForm = { ...this.addForm };
         addForm.goods_cat = addForm.goods_cat.join(',');
 
-<<<<<<< HEAD
         if (!this.isEdit) {
           const res = await this.$http.post('goods', addForm);
           if (res.meta.status !== 201) {
@@ -354,24 +342,11 @@ export default {
         this.goods_id = +this.$route.query.goods_id;
         this.getGoodsInfo();
       }
-=======
-        const res = await this.$http.post('goods', addForm);
-        if (res.meta.status !== 201) {
-          this.$message.error(res.meta.msg);
-        }
-        this.$message.success(res.meta.msg);
-        this.$router.push('/goods');
-        // console.log(addForm);
-      });
->>>>>>> 038211263e4fb19b8583575be94616f13346633e
     }
   },
   created() {
     this.getCateList();
-<<<<<<< HEAD
     this.backfillData();
-=======
->>>>>>> 038211263e4fb19b8583575be94616f13346633e
   }
 };
 </script>
