@@ -6,15 +6,15 @@
         <router-link to="/">
           <img src="../assets/logo.png" alt="logo" />
         </router-link>
-        <span>电商管理后台 {{ activeMenu }}</span>
+        <span>电商管理后台</span>
+        <span class="toggle-menu" @click="toogleCollapse">
+          <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></i>
+        </span>
       </div>
       <el-button type="info" @click="logout" size="mini">退出</el-button>
     </el-header>
     <el-container>
       <el-aside :width="isCollapse ? '64px' : '200px'">
-        <div class="toggle-menu" @click="toogleCollapse">
-          <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></i>
-        </div>
         <!--unique-opened 只展开一个，collapse 折叠，collapse-transition 折叠动画，
         router 为真开启路由菜单模式，跳转到菜单绑定的 index 
         default-active 高亮菜单的 index-->
@@ -127,8 +127,8 @@ export default {
 .iconfont
   margin-right 10px
 .toggle-menu
-  padding-right 24px
-  background-color #4a5064
+  padding-left 24px
+  // background-color #4a5064
   font-size 16px
   line-height 30px
   text-align right

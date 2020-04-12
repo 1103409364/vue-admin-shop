@@ -31,11 +31,11 @@
       </el-row>
       <!-- 用户列表 -->
       <el-table :data="userList" width="100%" border stripe>
-        <el-table-column label="#" type="index"> </el-table-column>
-        <el-table-column label="姓名" prop="username"> </el-table-column>
-        <el-table-column label="邮箱" prop="email"> </el-table-column>
-        <el-table-column label="电话" prop="mobile"> </el-table-column>
-        <el-table-column label="角色" prop="role_name"> </el-table-column>
+        <el-table-column label="#" type="index" />
+        <el-table-column label="姓名" prop="username" />
+        <el-table-column label="邮箱" prop="email" />
+        <el-table-column label="电话" prop="mobile" />
+        <el-table-column label="角色" prop="role_name" />
         <el-table-column label="状态">
           <!-- 作用域插槽覆盖 prop -->
           <template v-slot:default="slotProps">
@@ -374,6 +374,11 @@ export default {
   },
   created() {
     this.getUserList();
+  },
+  mounted() {
+    let gutter = document.getElementsByName('gutter');
+    // gutter.parent.removeChild(gutter);
+    console.log(gutter.parent);
   }
 };
 </script>
