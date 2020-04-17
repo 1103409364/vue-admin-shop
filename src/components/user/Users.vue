@@ -374,11 +374,6 @@ export default {
   },
   created() {
     this.getUserList();
-  },
-  mounted() {
-    let gutter = document.getElementsByName('gutter');
-    // gutter.parent.removeChild(gutter);
-    console.log(gutter.parent);
   }
 };
 </script>
