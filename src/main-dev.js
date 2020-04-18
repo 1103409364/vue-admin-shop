@@ -76,10 +76,10 @@ import {
   Footer,
   Timeline,
   TimelineItem,
-  Link,
+  // Link,
   Divider,
   Image,
-  Calendar,
+  // Calendar,
   Backtop,
   PageHeader,
   CascaderPanel,
@@ -89,10 +89,13 @@ import {
   Notification
 } from 'element-ui';
 
+import Nprogress from 'nprogress';
+import 'nprogress/nprogress.css';
 import axios from 'axios';
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/';
 
 axios.interceptors.request.use(config => {
+  Nprogress.start();
   let token = window.sessionStorage.getItem('token');
   if (token) {
     config.headers.Authorization = token;
@@ -101,6 +104,7 @@ axios.interceptors.request.use(config => {
 });
 
 axios.interceptors.response.use(response => {
+  Nprogress.done();
   const { data: res } = response;
   if (res.meta.msg === '无效token') {
     router.push('/login');
@@ -176,10 +180,10 @@ Vue.use(Main);
 Vue.use(Footer);
 Vue.use(Timeline);
 Vue.use(TimelineItem);
-Vue.use(Link);
+// Vue.use(Link);
 Vue.use(Divider);
 Vue.use(Image);
-Vue.use(Calendar);
+// Vue.use(Calendar);
 Vue.use(Backtop);
 Vue.use(PageHeader);
 Vue.use(CascaderPanel);
