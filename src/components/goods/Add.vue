@@ -277,7 +277,6 @@ export default {
           };
           this.addForm.attrs.push(newInfo);
         });
-
         this.onlyTableData.forEach(item => {
           const newInfo = { attr_id: item.attr_id, attr_value: item.attr_vals };
           this.addForm.attrs.push(newInfo);
